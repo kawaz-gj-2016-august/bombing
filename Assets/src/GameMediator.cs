@@ -62,6 +62,8 @@ public class GameMediator : MonoBehaviour {
 			case 1:
 			{
 				// TODO: ルアー
+				GameObject genLure = (GameObject)GameObject.Instantiate(lure, target, Quaternion.identity);
+				addLure(genLure);
 				break;
 			}
 			case 2:
@@ -104,14 +106,17 @@ public class GameMediator : MonoBehaviour {
 		}
 		// 置き爆弾の削除
 		powderPacks.RemoveAll(p => packToDelete.Contains(p));
+		List<GameObject> lureToDelete = new List<GameObject>();
 		// ルアーについて
 		foreach (GameObject lure in lures)
 		{
 			if (Vector3.Distance(lure.transform.position, position) < dRange)
 			{
-				// TODO: さすがに爆発に巻き込まれたらぶっ壊れるよね
+				Destroy(lure.gameObject);
+				lureToDelete.Add(lure);
 			}
 		}
+		lures.RemoveAll(l => lureToDelete.Contains(l));
 	}
 
 	/**
