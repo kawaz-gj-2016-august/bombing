@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombType: 0
   bombEffect: {fileID: 1000011059957228, guid: 9dceeb1a92669422d8292bf0611882ab, type: 2}
-  damageRange: 3.5
+  damageRange: 2
 --- !u!212 &212000010009818850
 SpriteRenderer:
   m_ObjectHideFlags: 1
