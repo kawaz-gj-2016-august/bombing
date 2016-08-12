@@ -101,7 +101,7 @@ GameObject:
   - 222: {fileID: 116923704}
   - 114: {fileID: 116923703}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:          0'
+  m_Text: 'Score: '
 --- !u!222 &116923704
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -211,7 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cad2edb66d5daf479bad754d4ca6662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunPower: 0
+  GunPower: 500
+  Score: 0
+  meterObject: {fileID: 994810414}
+  scoreLabel: {fileID: 116923703}
 --- !u!114 &994810414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
