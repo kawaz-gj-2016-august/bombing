@@ -4,6 +4,10 @@ using System;
 
 public class MainSceneUI : MonoBehaviour {
 
+	public UnityEngine.UI.RawImage meterObject;
+	public UnityEngine.UI.Text scoreLabel;
+	public UnityEngine.UI.Text gpLabel;
+
 	public const int MaxGunPower = 1000;
 	static public int GunPower = 0;
 	static public int Score = 0;
@@ -43,15 +47,6 @@ public class MainSceneUI : MonoBehaviour {
 
 	}
 
-	[SerializeField]
-	public UnityEngine.UI.RawImage meterObject;
-
-	[SerializeField]
-	public UnityEngine.UI.Text scoreLabel;
-
-	[SerializeField]
-	public UnityEngine.UI.Text gpLabel;
-
 	/// <summary>
 	/// 滑らかな増減処理を行います
 	/// </summary>
@@ -61,9 +56,8 @@ public class MainSceneUI : MonoBehaviour {
 		temp += value * (temp > 0 ? -1 : 1);
 		dest = System.Math.Min(max, System.Math.Max(dest, min));
 	}*/
-	private void applyIncrement(ref int temp, ref int dest)
-	{
-		int delta = System.Math.Abs(temp - dest);
+	private void applyIncrement(ref int temp, ref int dest) {
+		int delta = Math.Abs(temp - dest);
 		int d = ((delta / 10 > 0) ? delta / 10 : (temp != dest ? 1 : 0));
 		dest = dest + d * (temp - dest > 0 ? 1 : -1);
 	}
