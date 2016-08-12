@@ -1,26 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MainSceneUI : MonoBehaviour {
 
 	public const int MaxGunPower = 1000;
-	public int GunPower = 0;
-	public int Score = 0;
-	private int tempPower = 0;
-	private int tempScore = 0;
+	static public int GunPower = 0;
+	static public int Score = 0;
+	static private int tempPower = 0;
+	static private int tempScore = 0;
 
 	/// <summary>
 	/// 残弾ゲージを滑らかに増減します。
 	/// </summary>
-	public void IncrementGunPower(int value) {
-		this.tempPower += value;
+	public void IncrementGunPowder(int value) {
+		tempPower += value;
 	}
 
 	/// <summary>
 	/// スコアを滑らかに増減します。
 	/// </summary>
 	public void IncrementScore(int value) {
-		this.tempScore += value;
+		tempScore += value;
+	}
+
+	/// <summary>
+	/// 残弾ゲージを滑らかに増減します。
+	/// </summary>
+	static public void setGunPowder(int value) {
+		tempPower = value;
+	}
+
+	/// <summary>
+	/// スコアを滑らかに増減します。
+	/// </summary>
+	static public void setScore(int value) {
+		tempScore = value;
 	}
 
 	// Use this for initialization
@@ -40,34 +55,35 @@ public class MainSceneUI : MonoBehaviour {
 	/// <summary>
 	/// 滑らかな増減処理を行います
 	/// </summary>
-	private void applyIncrement(ref int temp, ref int dest, int min, int max) {
+	/*private void applyIncrement(ref int temp, ref int dest, int min, int max) {
 		int value = (System.Math.Abs(temp) / 10 > 0) ? System.Math.Abs(temp) / 10 : 1;
 		dest += value * (temp > 0 ? 1 : -1);
 		temp += value * (temp > 0 ? -1 : 1);
 		dest = System.Math.Min(max, System.Math.Max(dest, min));
+	}*/
+	private void applyIncrement(ref int temp, ref int dest)
+	{
+		int delta = System.Math.Abs(temp - dest);
+		int d = ((delta / 10 > 0) ? delta / 10 : (temp != dest ? 1 : 0));
+		dest = dest + d * (temp - dest > 0 ? 1 : -1);
 	}
 
 	// Update is called once per frame
 	void Update() {
-		//残弾ゲージを滑らかに増減
-		if(this.tempPower != 0) {
-			this.applyIncrement(ref this.tempPower, ref this.GunPower, 0, MaxGunPower);
-		}
+		applyIncrement(ref tempPower, ref GunPower);
 
 		//スコアを滑らかに増減
-		if(this.tempScore != 0) {
-			this.applyIncrement(ref this.tempScore, ref this.Score, 0, int.MaxValue);
-		}
+		applyIncrement(ref tempScore, ref Score);
 
 		//UI類を更新
-		meterObject.uvRect = new Rect(0, 0, this.GunPower / (float)MaxGunPower, 1.0f);
-		meterObject.transform.localScale = new Vector3(this.GunPower / (float)MaxGunPower, 1.0f, 1.0f);
-		scoreLabel.text = "Score: " + string.Format("{0,10}", this.Score);
-		gpLabel.text = "GP: " + string.Format("{0,4}", this.GunPower);
+		meterObject.uvRect = new Rect(0, 0, GunPower / (float)MaxGunPower, 1.0f);
+		meterObject.transform.localScale = new Vector3(GunPower / (float)MaxGunPower, 1.0f, 1.0f);
+		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
+		gpLabel.text = "GP: " + string.Format("{0:0000}", GunPower);
 	}
 
 	public void TestGauge() {
-		this.IncrementGunPower(100);
-		this.IncrementScore(100000);
+		IncrementGunPowder(100);
+		IncrementScore(100000);
 	}
 }

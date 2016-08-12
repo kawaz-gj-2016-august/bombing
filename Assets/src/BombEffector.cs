@@ -42,7 +42,6 @@ public class BombEffector : MonoBehaviour {
 		{
 			if (triggeredAt == 0.0f) {
 				triggeredAt = Time.time;
-				Debug.Log(triggeredAt);
 			}
 			if (blowDelay < (Time.time - triggeredAt)) {
 				// bombEffectは1.0fになるように調節している。damageRangeによってその大きさを変更

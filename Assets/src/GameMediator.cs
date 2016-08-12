@@ -9,8 +9,9 @@ public class GameMediator : MonoBehaviour {
 	public GameObject bomb;
 	public GameObject lure;
 	public GameObject powderPack;
-	public float gunpowder;
-	public float[] cost = new float[3];
+	public int gunpowder;
+	public int score;
+	public int[] cost = new int[3];
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
@@ -48,13 +49,15 @@ public class GameMediator : MonoBehaviour {
 			}
 		}
 
-		if (gunpowder < 0.0f)
+		if (gunpowder < 0)
 		{
 			// GAME!
 		}
 
-		gunpowder += 0.25f;
+		gunpowder += 1;
 
+		MainSceneUI.setGunPowder(gunpowder);
+		MainSceneUI.setScore(score);
 	}
 
 	/**
