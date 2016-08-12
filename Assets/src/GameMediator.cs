@@ -67,7 +67,6 @@ public class GameMediator : MonoBehaviour {
 		{
 			if (Vector3.Distance(powderPack.transform.position, position) < dRange)
 			{
-				// TODO: 誘爆処理
 				// まずは対象となった置き爆弾のBombEffectorスクリプトを取得
 				BombEffector effectorSrc = (BombEffector) powderPack.GetComponent(typeof(BombEffector));
 				effectorSrc.ignite(); // そして点火
@@ -86,7 +85,7 @@ public class GameMediator : MonoBehaviour {
 	/**
 	 * ルアーを追加する
 	 */
-	static void addLure(GameObject lure)
+	static public void addLure(GameObject lure)
 	{
 		lures.Add(lure);
 	}
@@ -94,7 +93,7 @@ public class GameMediator : MonoBehaviour {
 	/**
 	 * ルアーのリストを得る
 	 */
-	static List<GameObject> getLures()
+	static public List<GameObject> getLures()
 	{
 		return lures;
 	}
@@ -102,7 +101,7 @@ public class GameMediator : MonoBehaviour {
 	/**
 	 * 置き爆弾を追加する
 	 */
-	static void addPowderPack(GameObject powderPack)
+	static public void addPowderPack(GameObject powderPack)
 	{
 		powderPacks.Add(powderPack);
 	}
