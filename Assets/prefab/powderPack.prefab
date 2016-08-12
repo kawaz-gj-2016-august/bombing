@@ -85,6 +85,7 @@ MonoBehaviour:
   bombType: 1
   bombEffect: {fileID: 1000011059957228, guid: 9dceeb1a92669422d8292bf0611882ab, type: 2}
   damageRange: 1
+  blowDelay: 0.33
 --- !u!212 &212000010710871640
 SpriteRenderer:
   m_ObjectHideFlags: 1
