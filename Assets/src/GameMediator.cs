@@ -115,6 +115,23 @@ public class GameMediator : MonoBehaviour {
 	}
 
 	/**
+	 * 敵を追加する
+	 */
+	static public void addEnemy(GameObject enemy)
+	{
+		enemies.Add(enemy);
+	}
+
+	/**
+	 * 敵を取り除く
+	 */
+	static public void removeEnemy(GameObject enemy)
+	{
+		// 「enemiesの要素の中でenemyに一致したもの全てを取り除く」
+		enemies.RemoveAll(e => e == enemy);
+	}
+
+	/**
 	 * ルアーを追加する
 	 */
 	static public void addLure(GameObject lure)
