@@ -39,7 +39,7 @@ public class BombEffector : MonoBehaviour {
 		if (triggered)
 		{
 			// bombEffectは1.0fになるように調節している。damageRangeによってその大きさを変更
-			bombEffect.transform.localScale = new Vector3(damageRange, damageRange, 1.0f);
+			bombEffect.transform.localScale = new Vector3(damageRange*2, damageRange*2, 1.0f);
 			Instantiate(bombEffect, this.transform.position, Quaternion.identity);
 			GameMediator.bombDamage(this.transform.position, damageRange);
 			Destroy(this.gameObject);

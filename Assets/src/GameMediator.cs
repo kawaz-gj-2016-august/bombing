@@ -48,6 +48,11 @@ public class GameMediator : MonoBehaviour {
 			}
 		}
 
+		if (gunpowder < 0.0f)
+		{
+			// GAME!
+		}
+
 		gunpowder += 0.25f;
 
 	}
