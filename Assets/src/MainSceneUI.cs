@@ -31,6 +31,9 @@ public class MainSceneUI : MonoBehaviour {
 	[SerializeField]
 	public UnityEngine.UI.Text scoreLabel;
 
+	[SerializeField]
+	public UnityEngine.UI.Text gpLabel;
+
 	// Update is called once per frame
 	void Update() {
 		if(meterObject != null) {
@@ -38,5 +41,6 @@ public class MainSceneUI : MonoBehaviour {
 			meterObject.transform.localScale = new Vector3(this.GunPower / (float)MaxGunPower, 1, 1);
 		}
 		scoreLabel.text = "Score: " + string.Format("{0,10}", this.Score);
+		gpLabel.text = "GP: " + string.Format("{0,4}", this.GunPower);
 	}
 }
