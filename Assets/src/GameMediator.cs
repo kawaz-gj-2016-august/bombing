@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameMediator : MonoBehaviour {
 
 	public GameObject targetX;
-	public GameObject bombEffect;
+	public GameObject bomb;
+	public GameObject lure;
+	public GameObject powderPack;
 	public float gunpowder;
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
@@ -53,7 +56,7 @@ public class GameMediator : MonoBehaviour {
 			case 0:
 			{
 				// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
-				Instantiate(bombEffect, target, Quaternion.identity); // 爆風 - これをもとにダメージ計算
+				Instantiate(bomb, target, Quaternion.identity);
 				break;
 			}
 			case 1:
@@ -64,6 +67,8 @@ public class GameMediator : MonoBehaviour {
 			case 2:
 			{
 				// TODO: 置き爆弾
+				GameObject pack = (GameObject)GameObject.Instantiate(powderPack, target, Quaternion.identity);
+				addPowderPack(pack);
 				break;
 			}
 		}
@@ -86,6 +91,7 @@ public class GameMediator : MonoBehaviour {
 			}
 		}
 		// 置き爆弾について
+		List<GameObject> packToDelete = new List<GameObject>();
 		foreach (GameObject powderPack in powderPacks)
 		{
 			if (Vector3.Distance(powderPack.transform.position, position) < dRange)
@@ -93,8 +99,11 @@ public class GameMediator : MonoBehaviour {
 				// まずは対象となった置き爆弾のBombEffectorスクリプトを取得
 				BombEffector effectorSrc = (BombEffector) powderPack.GetComponent(typeof(BombEffector));
 				effectorSrc.ignite(); // そして点火
+				packToDelete.Add(powderPack); // 削除準備
 			}
 		}
+		// 置き爆弾の削除
+		powderPacks.RemoveAll(p => packToDelete.Contains(p));
 		// ルアーについて
 		foreach (GameObject lure in lures)
 		{
