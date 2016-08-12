@@ -8,7 +8,8 @@ public class GameMediator : MonoBehaviour {
 	public GameObject bombEffect;
 	public float gunpowder;
 	static private List<GameObject> enemies = new List<GameObject>();
-	static private List<GameObject> weapons = new List<GameObject>();
+	static private List<GameObject> powderPacks = new List<GameObject>();
+	static private List<GameObject> lures = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
@@ -50,7 +51,7 @@ public class GameMediator : MonoBehaviour {
 	 * @param Vector3 position 爆弾の位置
 	 * @param float   dRange   ダメージが通る半径
 	 */
-	static void bombDamage(Vector3 position, float dRange)
+	static public void bombDamage(Vector3 position, float dRange)
 	{
 		// 敵について
 		foreach (GameObject enemy in enemies)
@@ -61,14 +62,50 @@ public class GameMediator : MonoBehaviour {
 				// TODO: ここに敵をぶっとばす処理を入れる
 			}
 		}
-		// 武器について
-		foreach (GameObject weapon in weapons)
+		// 置き爆弾について
+		foreach (GameObject powderPack in powderPacks)
 		{
-			objectPosition = weapon.transform.position;
-			if (Vector3.Distance(weapon.transform.position, position) < dRange)
+			if (Vector3.Distance(powderPack.transform.position, position) < dRange)
 			{
-				// TODO: 誘爆処理、ルアー破壊処理など
+				// TODO: 誘爆処理
+				// まずは対象となった置き爆弾のBombEffectorスクリプトを取得
+				BombEffector effectorSrc = (BombEffector) powderPack.GetComponent(typeof(BombEffector));
+				effectorSrc.ignite(); // そして点火
+			}
+		}
+		// ルアーについて
+		foreach (GameObject lure in lures)
+		{
+			if (Vector3.Distance(lure.transform.position, position) < dRange)
+			{
+				// TODO: さすがに爆発に巻き込まれたらぶっ壊れるよね
 			}
 		}
 	}
+
+	/**
+	 * ルアーを追加する
+	 */
+	static void addLure(GameObject lure)
+	{
+		lures.Add(lure);
+	}
+
+	/**
+	 * ルアーのリストを得る
+	 */
+	static List<GameObject> getLures()
+	{
+		return lures;
+	}
+
+	/**
+	 * 置き爆弾を追加する
+	 */
+	static void addPowderPack(GameObject powderPack)
+	{
+		powderPacks.Add(powderPack);
+	}
+
+
 }
