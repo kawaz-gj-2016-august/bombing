@@ -11,7 +11,8 @@ public enum _bombType
 public class BombEffector : MonoBehaviour {
 
 	public _bombType bombType;
-	public float dRange;
+	public GameObject bombEffect;
+	public float damageRange;
 	private bool triggered;
 
 	// Use this for initialization
@@ -37,9 +38,14 @@ public class BombEffector : MonoBehaviour {
 	void Update () {
 		if (triggered)
 		{
-			GameMediator.bombDamage(this.transform.position, dRange);
+			// bombEffectは1.0fになるように調節している。damageRangeによってその大きさを変更
+			bombEffect.transform.localScale = new Vector3(damageRange, damageRange, 1.0f);
+			Instantiate(bombEffect, this.transform.position, Quaternion.identity);
+			GameMediator.bombDamage(this.transform.position, damageRange);
+			Destroy(this.gameObject);
 		}
 	}
+
 
 	/**
 	 * triggeredをtrueにする。種類によってはいきなりtrueになっているやつもあるけど

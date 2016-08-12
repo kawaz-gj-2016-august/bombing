@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GameMediator : MonoBehaviour {
 
 	public GameObject targetX;
-	public GameObject bombEffect;
+	public GameObject bomb;
+	public GameObject lure;
+	public GameObject powderPack;
 	public float gunpowder;
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
+	private int bombType = 0;
+	public string[] bombKeyType = new string[] {"1", "2", "3"};
 
 	// Use this for initialization
 	void Start () {
@@ -19,14 +24,19 @@ public class GameMediator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// 爆弾の種類の切り替えを行う
+		for (int i = 0; i < bombKeyType.Length; i++)
+		{
+			if (Input.GetKey(bombKeyType[i]))
+			{
+				bombType = i;
+			}
+		}
+
 		// クリック時の処理
-		/**
-		 * 1. クリックした場所に爆弾を落とす。
-		 *
-		 */
 		if (Input.GetMouseButtonDown(0))
 		{
-			dropBomb(0);
+			dropBomb(bombType);
 		}
 
 	}
@@ -42,8 +52,28 @@ public class GameMediator : MonoBehaviour {
 		target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		target.z = transform.position.z; // Z切り捨て
 		Instantiate(targetX, target, Quaternion.identity); // ターゲットのXマーク
-		// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
-		Instantiate(bombEffect, target, Quaternion.identity); // 爆風 - これをもとにダメージ計算
+		switch (bombType) {
+			case 0:
+			{
+				// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
+				Instantiate(bomb, target, Quaternion.identity);
+				break;
+			}
+			case 1:
+			{
+				// TODO: ルアー
+				GameObject genLure = (GameObject)GameObject.Instantiate(lure, target, Quaternion.identity);
+				addLure(genLure);
+				break;
+			}
+			case 2:
+			{
+				// TODO: 置き爆弾
+				GameObject pack = (GameObject)GameObject.Instantiate(powderPack, target, Quaternion.identity);
+				addPowderPack(pack);
+				break;
+			}
+		}
 	}
 
 	/**
@@ -63,6 +93,7 @@ public class GameMediator : MonoBehaviour {
 			}
 		}
 		// 置き爆弾について
+		List<GameObject> packToDelete = new List<GameObject>();
 		foreach (GameObject powderPack in powderPacks)
 		{
 			if (Vector3.Distance(powderPack.transform.position, position) < dRange)
@@ -70,16 +101,39 @@ public class GameMediator : MonoBehaviour {
 				// まずは対象となった置き爆弾のBombEffectorスクリプトを取得
 				BombEffector effectorSrc = (BombEffector) powderPack.GetComponent(typeof(BombEffector));
 				effectorSrc.ignite(); // そして点火
+				packToDelete.Add(powderPack); // 削除準備
 			}
 		}
+		// 置き爆弾の削除
+		powderPacks.RemoveAll(p => packToDelete.Contains(p));
+		List<GameObject> lureToDelete = new List<GameObject>();
 		// ルアーについて
 		foreach (GameObject lure in lures)
 		{
 			if (Vector3.Distance(lure.transform.position, position) < dRange)
 			{
-				// TODO: さすがに爆発に巻き込まれたらぶっ壊れるよね
+				Destroy(lure.gameObject);
+				lureToDelete.Add(lure);
 			}
 		}
+		lures.RemoveAll(l => lureToDelete.Contains(l));
+	}
+
+	/**
+	 * 敵を追加する
+	 */
+	static public void addEnemy(GameObject enemy)
+	{
+		enemies.Add(enemy);
+	}
+
+	/**
+	 * 敵を取り除く
+	 */
+	static public void removeEnemy(GameObject enemy)
+	{
+		// 「enemiesの要素の中でenemyに一致したもの全てを取り除く」
+		enemies.RemoveAll(e => e == enemy);
 	}
 
 	/**
