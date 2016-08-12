@@ -100,14 +100,20 @@ public class GameMediator : MonoBehaviour {
 	static public void bombDamage(Vector3 position, float dRange)
 	{
 		// 敵について
+
+		List<GameObject> enemyToDelete = new List<GameObject>();
 		foreach (GameObject enemy in enemies)
 		{
 			// positionとobjectPositionの距離をとってdRange内にあればヒット
 			if (Vector3.Distance(enemy.transform.position, position) < dRange)
 			{
 				// TODO: ここに敵をぶっとばす処理を入れる
+				Destroy(enemy.gameObject);
+				enemyToDelete.Add(enemy);
+				SpawnSquare.spriteDestroyed();
 			}
 		}
+		enemies.RemoveAll(l => enemyToDelete.Contains(l));
 		// 置き爆弾について
 		List<GameObject> packToDelete = new List<GameObject>();
 		foreach (GameObject powderPack in powderPacks)
@@ -176,5 +182,8 @@ public class GameMediator : MonoBehaviour {
 		powderPacks.Add(powderPack);
 	}
 
-
+	static public List<GameObject> getEnemies()
+	{
+		return enemies;
+	}
 }
