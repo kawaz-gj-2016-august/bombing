@@ -9,8 +9,11 @@ public class GameMediator : MonoBehaviour {
 	public GameObject bomb;
 	public GameObject lure;
 	public GameObject powderPack;
-	public float gunpowder;
-	public float[] cost = new float[3];
+	public GameObject cannon;
+	public GameObject bombArc;
+	public int gunpowder;
+	public int score;
+	public int[] cost = new int[3];
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
@@ -72,6 +75,12 @@ public class GameMediator : MonoBehaviour {
 			case 0:
 			{
 				// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
+				float angle = Vector3.Angle(Vector3.down, cannon.transform.position - target);
+				angle = angle * (target.x < 0 ? 1 : -1);
+				GameObject arc = (GameObject)Instantiate(bombArc, cannon.transform.position, Quaternion.identity);
+				arc.transform.Rotate(0, 0, angle, Space.Self);
+				arc.transform.localScale = new Vector3(1, Vector3.Distance(target, cannon.transform.position), 1);
+				Debug.Log(Vector3.Distance(target, cannon.transform.position));
 				Instantiate(bomb, target, Quaternion.identity);
 				break;
 			}
