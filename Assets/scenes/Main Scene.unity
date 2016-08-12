@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetX: {fileID: 1000013819743488, guid: 49f4984871f024898b067c3f85df8789, type: 2}
   bomb: {fileID: 1000011024544778, guid: 5b060af9190fe403598983eba8d4ef9e, type: 2}
-  lure: {fileID: 0}
+  lure: {fileID: 1000013527573736, guid: f3c87461036cf43f09abb32e89067b0e, type: 2}
   powderPack: {fileID: 1000013018923722, guid: e46f22dcc7bc64dfe9cb37ab4b7b6c20, type: 2}
   gunpowder: 0
   bombKeyType:
