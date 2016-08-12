@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 9282f42283d5b924fbca5f4985bd26d0
+timeCreated: 1470990813
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - DSEG14 Classic
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8620eba3870069f4b9b80615f1570623, type: 3}
+  - {fileID: 12800000, guid: 4d295c079bd8a614e93851b0cc1d3348, type: 3}
+  - {fileID: 12800000, guid: 66cd2a2766efbc0429f21b1ebb249bbd, type: 3}
+  - {fileID: 12800000, guid: 749f6b3f21576b94996489e019c98b8f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
