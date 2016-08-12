@@ -10,6 +10,8 @@ public class GameMediator : MonoBehaviour {
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
+	private int bombType = 0;
+	public string[] bombKeyType = new string[] {"1", "2", "3"};
 
 	// Use this for initialization
 	void Start () {
@@ -19,14 +21,19 @@ public class GameMediator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// 爆弾の種類の切り替えを行う
+		for (int i = 0; i < bombKeyType.Length; i++)
+		{
+			if (Input.GetKey(bombKeyType[i]))
+			{
+				bombType = i;
+			}
+		}
+
 		// クリック時の処理
-		/**
-		 * 1. クリックした場所に爆弾を落とす。
-		 *
-		 */
 		if (Input.GetMouseButtonDown(0))
 		{
-			dropBomb(0);
+			dropBomb(bombType);
 		}
 
 	}
@@ -42,8 +49,24 @@ public class GameMediator : MonoBehaviour {
 		target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		target.z = transform.position.z; // Z切り捨て
 		Instantiate(targetX, target, Quaternion.identity); // ターゲットのXマーク
-		// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
-		Instantiate(bombEffect, target, Quaternion.identity); // 爆風 - これをもとにダメージ計算
+		switch (bombType) {
+			case 0:
+			{
+				// TODO: 爆風の出現を遅らせる+自陣から爆弾が飛ぶアニメも入れる
+				Instantiate(bombEffect, target, Quaternion.identity); // 爆風 - これをもとにダメージ計算
+				break;
+			}
+			case 1:
+			{
+				// TODO: ルアー
+				break;
+			}
+			case 2:
+			{
+				// TODO: 置き爆弾
+				break;
+			}
+		}
 	}
 
 	/**
