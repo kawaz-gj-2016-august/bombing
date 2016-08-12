@@ -10,6 +10,7 @@ public class GameMediator : MonoBehaviour {
 	public GameObject lure;
 	public GameObject powderPack;
 	public float gunpowder;
+	public float[] cost = new float[3];
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
@@ -36,8 +37,18 @@ public class GameMediator : MonoBehaviour {
 		// クリック時の処理
 		if (Input.GetMouseButtonDown(0))
 		{
-			dropBomb(bombType);
+			if (gunpowder >= cost[bombType])
+			{
+				dropBomb(bombType);
+				gunpowder -= cost[bombType];
+			}
+			else
+			{
+				// 足らない
+			}
 		}
+
+		gunpowder += 0.25f;
 
 	}
 
