@@ -52,17 +52,22 @@ public class GameMediator : MonoBehaviour {
 	 */
 	static void bombDamage(Vector3 position, float dRange)
 	{
-		Vector3 objectPosition;
-		Vector3 vDistance;
 		// 敵について
 		foreach (GameObject enemy in enemies)
 		{
 			// positionとobjectPositionの距離をとってdRange内にあればヒット
-			objectPosition = enemy.transform;
-			vDistance = position - objectPosition;
-			if (vDistance.magnitude < dRange)
+			if (Vector3.Distance(enemy.transform.position, position) < dRange)
 			{
 				// TODO: ここに敵をぶっとばす処理を入れる
+			}
+		}
+		// 武器について
+		foreach (GameObject weapon in weapons)
+		{
+			objectPosition = weapon.transform.position;
+			if (Vector3.Distance(weapon.transform.position, position) < dRange)
+			{
+				// TODO: 誘爆処理、ルアー破壊処理など
 			}
 		}
 	}
