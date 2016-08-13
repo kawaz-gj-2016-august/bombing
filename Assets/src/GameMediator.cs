@@ -11,27 +11,53 @@ public class GameMediator : MonoBehaviour {
 	public GameObject powderPack;
 	public GameObject cannon;
 	public GameObject bombArc;
-	public int gunpowder;
-	public int score;
+	public int initGunpowder;
+	static int _initGunpowder;
+	static int gunpowder;
+	static public int score;
 	public int[] cost = new int[3];
 	public int[] limit = new int[3];
-	static private List<GameObject> enemies = new List<GameObject>();
-	static private List<GameObject> powderPacks = new List<GameObject>();
-	static private List<GameObject> lures = new List<GameObject>();
-	private int bombType = 0;
+	static protected List<GameObject> enemies = new List<GameObject>();
+	static protected List<GameObject> powderPacks = new List<GameObject>();
+	static protected List<GameObject> lures = new List<GameObject>();
+	static private int bombType = 0;
 	public string[] bombKeyType = new string[] {"1", "2", "3"};
+	static private bool stopped = false;
 
 	static protected int killCount = 0;
 	static protected int damageCount = 0;
 
+	void Awake()
+	{
+		DontDestroyOnLoad(this);
+		if (FindObjectsOfType(GetType()).Length > 1)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 	// Use this for initialization
 	void Start () {
+		gunpowder = initGunpowder;
+		_initGunpowder = initGunpowder;
+	}
 
+	public static void reset()
+	{
+		enemies.Clear();
+		powderPacks.Clear();
+		lures.Clear();
+		gunpowder = _initGunpowder;
+		score = 0;
+		bombType = 0;
+		stopped = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		if (stopped) return;
 
 		// 爆弾の種類の切り替えを行う
 		for (int i = 0; i < bombKeyType.Length; i++)
@@ -58,7 +84,13 @@ public class GameMediator : MonoBehaviour {
 
 		if (gunpowder < 0)
 		{
-			// GAME!
+			stopped = true;
+			Communicator.setScore(score);
+			int time = 0;
+			Communicator.setTime(time);
+			Communicator.setKillCnt(killCount);
+			SpawnSquare.resetSpawn();
+			UnityEngine.SceneManagement.SceneManager.LoadScene("resultScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
 		}
 
 		gunpowder += 1;
@@ -142,6 +174,7 @@ public class GameMediator : MonoBehaviour {
 				Destroy(enemy.gameObject);
 				enemyToDelete.Add(enemy);
 				SpawnSquare.spriteDestroyed();
+				gunpowder += 1;
 				killCount += 1;
 			}
 		}
@@ -238,5 +271,6 @@ public class GameMediator : MonoBehaviour {
 	static public void addDamageCount(int damage = 1)
 	{
 		damageCount += damage;
+		gunpowder -= damage * 3;
 	}
 }
