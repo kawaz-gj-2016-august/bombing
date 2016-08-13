@@ -15,7 +15,7 @@ public class textFlashing : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		//TODO: スタート画面BGMを再生
-		//sndSrc.clip = 
+		//sndSrc.clip =
 		//sndSrc.Play();
 	}
 
@@ -42,7 +42,7 @@ public class textFlashing : MonoBehaviour {
 
 		if (movingSceneFlag == true)
 		{
-			back.GetComponent<Image>().CrossFadeColor(Color.black, sndDecide.clip.length, false, false);
+			back.GetComponent<Image>().CrossFadeColor(Color.black, sndSrc.clip.length, false, false);
 		}
 
 	}

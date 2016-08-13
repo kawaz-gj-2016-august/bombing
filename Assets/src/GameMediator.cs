@@ -253,9 +253,14 @@ public class GameMediator : MonoBehaviour {
 	}
 
 
-	public int getGunPowder()
+	static public int getGunpowder()
 	{
 		return gunpowder;
+	}
+
+	static public int getBombType()
+	{
+		return bombType;
 	}
 
 	static public int getKillCount()
@@ -273,4 +278,5 @@ public class GameMediator : MonoBehaviour {
 		damageCount += damage;
 		gunpowder -= damage * 3;
 	}
+
 }
