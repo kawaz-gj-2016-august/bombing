@@ -7,6 +7,10 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.RawImage meterObject;
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
+	public UnityEngine.UI.Text bombNormal;
+	public UnityEngine.UI.Text bombLure;
+	public UnityEngine.UI.Text bombPack;
+	public GameMediator gameMediator;
 
 	public const int MaxGunPower = 1000;
 	static public bool isGameOver = false;
@@ -34,7 +38,6 @@ public class MainSceneUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-
 	}
 
 	/// <summary>
@@ -75,5 +78,8 @@ public class MainSceneUI : MonoBehaviour {
 		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
 		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower);
+		bombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
+		bombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
+		bombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
 	}
 }
