@@ -8,7 +8,7 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
 
-	public const int MaxGunPower = 1000;
+	public const int MaxGunPower = 999999;
 	static public int GunPower = 0;
 	static public int Score = 0;
 	static private int tempPower = 0;
@@ -18,14 +18,16 @@ public class MainSceneUI : MonoBehaviour {
 	/// 残弾ゲージを滑らかに増減します。
 	/// </summary>
 	public void IncrementGunPowder(int value) {
-		tempPower += value;
+	//	tempPower += value;
+		tempPower = value;
 	}
 
 	/// <summary>
 	/// スコアを滑らかに増減します。
 	/// </summary>
 	public void IncrementScore(int value) {
-		tempScore += value;
+		//tempScore += value;
+		tempScore = value;
 	}
 
 	/// <summary>
@@ -59,7 +61,12 @@ public class MainSceneUI : MonoBehaviour {
 	private void applyIncrement(ref int temp, ref int dest) {
 		int delta = Math.Abs(temp - dest);
 		int d = ((delta / 10 > 0) ? delta / 10 : (temp != dest ? 1 : 0));
+
+		string dbg = "dest: before=";
+		dbg += dest;
 		dest = dest + d * (temp - dest > 0 ? 1 : -1);
+		dbg += " / after=" + dest;
+		Debug.Log(dbg);
 	}
 
 	// Update is called once per frame
@@ -73,7 +80,7 @@ public class MainSceneUI : MonoBehaviour {
 		meterObject.uvRect = new Rect(0, 0, GunPower / (float)MaxGunPower, 1.0f);
 		meterObject.transform.localScale = new Vector3(GunPower / (float)MaxGunPower, 1.0f, 1.0f);
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
-		gpLabel.text = "GP: " + string.Format("{0:0000}", GunPower);
+		gpLabel.text = "GP: " + string.Format("{0:D9}", GunPower);
 	}
 
 	public void TestGauge() {
