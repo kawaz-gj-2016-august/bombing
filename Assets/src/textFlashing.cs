@@ -3,10 +3,11 @@ using System.Collections;
 
 public class textFlashing : MonoBehaviour {
 
-	private int frameCount = 0;
+	public GameObject lblPressKeyMessage;
+	public AudioSource sndDecide;
 
-	[SerializeField]
-	public GameObject obj;
+	private bool movingSceneFlag = false;
+	private int frameCount = 0;
 
 	// Use this for initialization
 	void Start() {
@@ -15,12 +16,37 @@ public class textFlashing : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if(++this.frameCount > 60) {
-			this.frameCount = 0;
-			obj.SetActive(true);
-		} else if(this.frameCount % 30 == 0) {
-			obj.SetActive(false);
+		if(this.movingSceneFlag == true) {
+			return;
 		}
-		Debug.Log(frameCount);
+
+		//Press Any Keyを点滅
+		if(++this.frameCount > 40) {
+			this.frameCount = 0;
+			lblPressKeyMessage.SetActive(true);
+		} else if(this.frameCount % 20 == 0) {
+			lblPressKeyMessage.SetActive(false);
+		}
+
+		//キー入力があればゲーム画面へ進む
+		if(Input.anyKeyDown == true) {
+			lblPressKeyMessage.SetActive(false);
+			this.movingSceneFlag = true;
+			StartCoroutine(this.moveScene());
+		}
+	}
+
+	/// <summary>
+	/// シーン遷移
+	/// </summary>
+	private IEnumerator moveScene() {
+		//決定音再生
+		sndDecide.clip.LoadAudioData();
+		sndDecide.Play();
+		yield return new WaitForSeconds(sndDecide.clip.length);
+
+		//シーン遷移
+		UnityEngine.SceneManagement.SceneManager.UnloadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+		UnityEngine.SceneManagement.SceneManager.LoadScene("Main Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
 	}
 }
