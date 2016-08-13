@@ -20,6 +20,10 @@ public class GameMediator : MonoBehaviour {
 	private int bombType = 0;
 	public string[] bombKeyType = new string[] {"1", "2", "3"};
 
+	static protected int killCount = 0;
+	static protected int damageCount = 0;
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -122,6 +126,8 @@ public class GameMediator : MonoBehaviour {
 				Destroy(enemy.gameObject);
 				enemyToDelete.Add(enemy);
 				SpawnSquare.spriteDestroyed();
+
+				killCount += 1;
 			}
 		}
 		enemies.RemoveAll(l => enemyToDelete.Contains(l));
@@ -196,5 +202,26 @@ public class GameMediator : MonoBehaviour {
 	static public List<GameObject> getEnemies()
 	{
 		return enemies;
+	}
+
+
+	public int getGunPowder()
+	{
+		return gunpowder;
+	}
+
+	static public int getKillCount()
+	{
+		return killCount;
+	}
+
+	static public int getDamageCount()
+	{
+		return damageCount;
+	}
+
+	static public void addDamageCount(int damage = 1)
+	{
+		damageCount += damage;
 	}
 }
