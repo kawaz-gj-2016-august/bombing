@@ -10,6 +10,7 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.Text lblbombNormal;
 	public UnityEngine.UI.Text lblbombLure;
 	public UnityEngine.UI.Text lblbombPack;
+	public UnityEngine.UI.Text lblGuide;
 	public UnityEngine.UI.Image imgbombNormal;
 	public UnityEngine.UI.Image imgbombLure;
 	public UnityEngine.UI.Image imgbombPack;
@@ -91,5 +92,18 @@ public class MainSceneUI : MonoBehaviour {
 		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 0) ? 1.0f : 0.5f);
 		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 1) ? 1.0f : 0.5f);
 		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 2) ? 1.0f : 0.5f);
+
+		//ボム効果のガイド表示
+		switch(gameMediator.bombType) {
+			case 0:
+				lblGuide.text = "投げ込んだらすぐに爆破する";
+				break;
+			case 1:
+				lblGuide.text = "置いた場所に一定時間、敵が群がる";
+				break;
+			case 2:
+				lblGuide.text = "自然発火せず、引火して爆破する";
+				break;
+		}
 	}
 }
