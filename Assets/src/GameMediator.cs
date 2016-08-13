@@ -41,6 +41,7 @@ public class GameMediator : MonoBehaviour {
 	void Start () {
 		gunpowder = initGunpowder;
 		_initGunpowder = initGunpowder;
+		SpawnSquare.resetSpawn();
 	}
 
 	public static void reset()
