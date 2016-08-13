@@ -39,10 +39,6 @@ public class MainSceneUI : MonoBehaviour {
 		tempScore = Math.Min(int.MaxValue, Math.Max(value, 0));
 	}
 
-	// Use this for initialization
-	void Start() {
-	}
-
 	/// <summary>
 	/// 滑らかな増減処理を行います
 	/// </summary>
@@ -66,6 +62,10 @@ public class MainSceneUI : MonoBehaviour {
 		dest += d * (temp - dest > 0 ? 1 : -1);
 	}
 
+	// Use this for initialization
+	void Start() {
+	}
+
 	// Update is called once per frame
 	void Update() {
 		if(isGameOver == true) {
@@ -76,15 +76,18 @@ public class MainSceneUI : MonoBehaviour {
 		applyIncrement(ref tempPower, ref GunPower);
 		applyIncrement(ref tempScore, ref Score);
 
-		//UI類を更新
+		//メーター更新
 		meterObject.uvRect = new Rect(0, 0, 1.0f, GunPower / (float)MaxGunPower);
 		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
+		
+		//数値表示更新
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
-		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower);
+		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower) + (GunPower >= MaxGunPower && gameMediator.gunpowder > MaxGunPower ? "+" : "");
 		lblbombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
 		lblbombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
 		lblbombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
 
+		//ボム種別のアクティブ表示切替
 		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 0) ? 1.0f : 0.5f);
 		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 1) ? 1.0f : 0.5f);
 		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 2) ? 1.0f : 0.5f);

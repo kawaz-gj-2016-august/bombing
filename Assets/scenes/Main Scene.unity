@@ -409,7 +409,7 @@ MonoBehaviour:
   powderPack: {fileID: 1000013018923722, guid: e46f22dcc7bc64dfe9cb37ab4b7b6c20, type: 2}
   cannon: {fileID: 1996757033}
   bombArc: {fileID: 1000010121234690, guid: 0770ead4f719347519136eefd8f860d1, type: 2}
-  gunpowder: 0
+  gunpowder: 500
   score: 0
   cost: 64000000c80000004b000000
   bombType: 0
@@ -569,9 +569,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1946295776}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126, y: 138}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 237, y: -77}
   m_SizeDelta: {x: 184, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &827778390
@@ -1316,7 +1316,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -12}
+  m_AnchoredPosition: {x: 113, y: -11}
   m_SizeDelta: {x: 369.1, y: 40.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1801627328
