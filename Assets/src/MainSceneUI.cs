@@ -4,6 +4,7 @@ using System;
 
 public class MainSceneUI : MonoBehaviour {
 
+	public GameMediator gameMediator;
 	public UnityEngine.UI.RawImage meterObject;
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
@@ -14,7 +15,6 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.Image imgbombNormal;
 	public UnityEngine.UI.Image imgbombLure;
 	public UnityEngine.UI.Image imgbombPack;
-	public GameMediator gameMediator;
 
 	public const int MaxGunPower = 1000;
 	static public bool isGameOver = false;
@@ -65,6 +65,7 @@ public class MainSceneUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		//BGMは AudioSource:BGMSrc の AudioClipに直接セットされることを想定する
 	}
 
 	// Update is called once per frame
