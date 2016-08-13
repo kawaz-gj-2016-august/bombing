@@ -81,21 +81,21 @@ public class MainSceneUI : MonoBehaviour {
 		//メーター更新
 		meterObject.uvRect = new Rect(0, 0, 1.0f, GunPower / (float)MaxGunPower);
 		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
-		
+
 		//数値表示更新
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
-		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower) + (GunPower >= MaxGunPower && gameMediator.gunpowder > MaxGunPower ? "+" : "");
+		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower) + (GunPower >= MaxGunPower && (GameMediator.getGunpowder() > MaxGunPower) ? "+" : "");
 		lblbombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
 		lblbombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
 		lblbombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
 
 		//ボム種別のアクティブ表示切替
-		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 0) ? 1.0f : 0.5f);
-		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 1) ? 1.0f : 0.5f);
-		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 2) ? 1.0f : 0.5f);
+		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (GameMediator.getBombType() == 0) ? 1.0f : 0.5f);
+		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (GameMediator.getBombType() == 1) ? 1.0f : 0.5f);
+		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (GameMediator.getBombType() == 2) ? 1.0f : 0.5f);
 
 		//ボム効果のガイド表示
-		switch(gameMediator.bombType) {
+		switch(GameMediator.getBombType()) {
 			case 0:
 				lblGuide.text = "投げ込んだらすぐに爆破する";
 				break;

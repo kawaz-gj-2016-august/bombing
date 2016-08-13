@@ -9,7 +9,6 @@ public class SpawnSquare : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Spawner loaded.");
 		spriteToSpawn.transform.position = new Vector3(0, 4.5f, 2.0f);
 		spriteToSpawn.transform.localScale = new Vector3(1, 1, 2.0f);
 	}
@@ -24,6 +23,11 @@ public class SpawnSquare : MonoBehaviour {
 
 	static public void spriteDestroyed () {
 		numberSpawned--;
+	}
+
+	static public void resetSpawn()
+	{
+		numberSpawned = 0;
 	}
 
 }

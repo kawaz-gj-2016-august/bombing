@@ -11,26 +11,54 @@ public class GameMediator : MonoBehaviour {
 	public GameObject powderPack;
 	public GameObject cannon;
 	public GameObject bombArc;
-	public int gunpowder;
-	public int score;
+	public int initGunpowder;
+	static int _initGunpowder;
+	static int gunpowder;
+	static public int score;
 	public int[] cost = new int[3];
-	static private List<GameObject> enemies = new List<GameObject>();
-	static private List<GameObject> powderPacks = new List<GameObject>();
-	static private List<GameObject> lures = new List<GameObject>();
-	public int bombType = 0;
+	public int[] limit = new int[3];
+	static protected List<GameObject> enemies = new List<GameObject>();
+	static protected List<GameObject> powderPacks = new List<GameObject>();
+	static protected List<GameObject> lures = new List<GameObject>();
+	static private int bombType = 0;
 	public string[] bombKeyType = new string[] {"1", "2", "3"};
+	static private bool stopped = false;
 
 	static protected int killCount = 0;
 	static protected int damageCount = 0;
 
+	void Awake()
+	{
+		DontDestroyOnLoad(this);
+		if (FindObjectsOfType(GetType()).Length > 1)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 	// Use this for initialization
 	void Start () {
+		gunpowder = initGunpowder;
+		_initGunpowder = initGunpowder;
+		SpawnSquare.resetSpawn();
+	}
 
+	public static void reset()
+	{
+		enemies.Clear();
+		powderPacks.Clear();
+		lures.Clear();
+		gunpowder = _initGunpowder;
+		score = 0;
+		bombType = 0;
+		stopped = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+		if (stopped) return;
 
 		// 爆弾の種類の切り替えを行う
 		for (int i = 0; i < bombKeyType.Length; i++)
@@ -42,7 +70,7 @@ public class GameMediator : MonoBehaviour {
 		}
 
 		// クリック時の処理
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && qtyChecker(bombType))
 		{
 			if (gunpowder >= cost[bombType])
 			{
@@ -57,7 +85,13 @@ public class GameMediator : MonoBehaviour {
 
 		if (gunpowder < 0)
 		{
-			// GAME!
+			stopped = true;
+			Communicator.setScore(score);
+			int time = 0;
+			Communicator.setTime(time);
+			Communicator.setKillCnt(killCount);
+			SpawnSquare.resetSpawn();
+			UnityEngine.SceneManagement.SceneManager.LoadScene("resultScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
 		}
 
 		gunpowder += 1;
@@ -107,6 +141,22 @@ public class GameMediator : MonoBehaviour {
 		}
 	}
 
+	public bool qtyChecker(int type)
+	{
+		switch (type)
+		{
+			case 0:
+				//
+				return true;
+			case 1:
+				return lures.Count < limit[1];
+			case 2:
+				return powderPacks.Count < limit[2];
+			default:
+				return false;
+		}
+	}
+
 	/**
 	 * bombDamage - 爆風にかかったかどうかをチェック
 	 * @param Vector3 position 爆弾の位置
@@ -115,7 +165,6 @@ public class GameMediator : MonoBehaviour {
 	static public void bombDamage(Vector3 position, float dRange)
 	{
 		// 敵について
-
 		List<GameObject> enemyToDelete = new List<GameObject>();
 		foreach (GameObject enemy in enemies)
 		{
@@ -126,7 +175,7 @@ public class GameMediator : MonoBehaviour {
 				Destroy(enemy.gameObject);
 				enemyToDelete.Add(enemy);
 				SpawnSquare.spriteDestroyed();
-
+				gunpowder += 1;
 				killCount += 1;
 			}
 		}
@@ -205,9 +254,14 @@ public class GameMediator : MonoBehaviour {
 	}
 
 
-	public int getGunPowder()
+	static public int getGunpowder()
 	{
 		return gunpowder;
+	}
+
+	static public int getBombType()
+	{
+		return bombType;
 	}
 
 	static public int getKillCount()
@@ -223,5 +277,7 @@ public class GameMediator : MonoBehaviour {
 	static public void addDamageCount(int damage = 1)
 	{
 		damageCount += damage;
+		gunpowder -= damage * 3;
 	}
+
 }

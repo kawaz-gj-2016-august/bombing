@@ -80,7 +80,7 @@ public class SquareMover : MonoBehaviour {
 
 				// ルアーに入ったので次のルアーにはいかない
 				break;
-			
+
 				/*
 				// ここにきたら円運動
 				gameObject.transform.position = lurePos + new Vector3(
@@ -95,7 +95,7 @@ public class SquareMover : MonoBehaviour {
 
 			}
 
-				
+
 		}
 
 		// ルアーに入っていなければ通常移動
@@ -112,7 +112,7 @@ public class SquareMover : MonoBehaviour {
 			GameMediator.removeEnemy(gameObject);
 			Destroy(gameObject);
 			SpawnSquare.spriteDestroyed();
-			GameMediator.addDamageCount (1);
+			GameMediator.addDamageCount(1);
 	
 		}
 	}
