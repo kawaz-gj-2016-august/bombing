@@ -113,7 +113,6 @@ public class SquareMover : MonoBehaviour {
 			Destroy(gameObject);
 			SpawnSquare.spriteDestroyed();
 			GameMediator.addDamageCount(1);
-	
 		}
 	}
 }

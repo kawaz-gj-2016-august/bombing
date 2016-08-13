@@ -117,7 +117,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: [{fileID: 1755991984}, {fileID: 578361388}, {fileID: 1902229383}]
+  m_Children:
+  - {fileID: 1755991984}
+  - {fileID: 578361388}
+  - {fileID: 1902229383}
   m_Father: {fileID: 1946295776}
   m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0.5}
@@ -144,7 +147,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bf77aae444b2940398c7126384630103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20d44e5232618426e91eae6e813863e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -555,9 +558,13 @@ MonoBehaviour:
   powderPack: {fileID: 1000013018923722, guid: e46f22dcc7bc64dfe9cb37ab4b7b6c20, type: 2}
   cannon: {fileID: 1996757033}
   bombArc: {fileID: 1000010121234690, guid: 0770ead4f719347519136eefd8f860d1, type: 2}
+  SeSource: {fileID: 1060285369}
+  bombLaunch: {fileID: 8300000, guid: 2a5449918ba014f6496665c1b5754ec5, type: 3}
+  hurt: {fileID: 8300000, guid: 44fe1649c6d774d06a7ba873be46a88f, type: 3}
+  exp: {fileID: 0}
+  toggle: {fileID: 8300000, guid: 4a859d8949ad44b80b8879e5271e2d25, type: 3}
   initGunpowder: 0
   cost: 64000000c80000004b000000
-  bombType: 0
   limit: 000000000200000003000000
   bombKeyType:
   - 1
@@ -573,7 +580,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: [{fileID: 1996757035}]
+  m_Children:
+  - {fileID: 1996757035}
   m_Father: {fileID: 0}
   m_RootOrder: 8
 --- !u!1 &774237277
@@ -603,7 +611,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: [{fileID: 1557527557}, {fileID: 1276338509}, {fileID: 502360089}]
+  m_Children:
+  - {fileID: 1557527557}
+  - {fileID: 1276338509}
+  - {fileID: 502360089}
   m_Father: {fileID: 1946295776}
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0.5}
@@ -630,7 +641,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 01cef142d9c0047548bcd8207e829336, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e99db5a2c04146cab4b55c37cc06d13, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -654,6 +665,7 @@ GameObject:
   - 224: {fileID: 799727357}
   - 222: {fileID: 799727356}
   - 114: {fileID: 799727355}
+  - 114: {fileID: 799727358}
   m_Layer: 5
   m_Name: Gp
   m_TagString: Untagged
@@ -718,6 +730,20 @@ RectTransform:
   m_AnchoredPosition: {x: 237, y: -77}
   m_SizeDelta: {x: 184, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &799727358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 799727354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &827778390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1185,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: [{fileID: 932578733}, {fileID: 14675671}, {fileID: 193441520}]
+  m_Children:
+  - {fileID: 932578733}
+  - {fileID: 14675671}
+  - {fileID: 193441520}
   m_Father: {fileID: 1946295776}
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0.5}
@@ -1643,6 +1672,7 @@ GameObject:
   - 224: {fileID: 1793330609}
   - 222: {fileID: 1793330608}
   - 114: {fileID: 1793330607}
+  - 114: {fileID: 1793330610}
   m_Layer: 5
   m_Name: Sc
   m_TagString: Untagged
@@ -1707,6 +1737,20 @@ RectTransform:
   m_AnchoredPosition: {x: 113, y: -11}
   m_SizeDelta: {x: 369.1, y: 40.5}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &1793330610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1793330606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 3, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1801627328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,7 +1856,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b581cfdfded6f46eea63236f2e3e7519, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2156,7 +2200,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: [{fileID: 1060285370}, {fileID: 1807790775}]
+  m_Children:
+  - {fileID: 1060285370}
+  - {fileID: 1807790775}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &1946295771

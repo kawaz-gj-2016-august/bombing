@@ -11,6 +11,14 @@ public class GameMediator : MonoBehaviour {
 	public GameObject powderPack;
 	public GameObject cannon;
 	public GameObject bombArc;
+	public AudioSource SeSource;
+	static public AudioSource _source;
+	public AudioClip bombLaunch;
+	public AudioClip hurt;
+	static public AudioClip _hurt;
+	public AudioClip exp;
+	static public AudioClip _exp;
+	public AudioClip toggle;
 	public int initGunpowder;
 	static int _initGunpowder;
 	static int gunpowder;
@@ -42,6 +50,8 @@ public class GameMediator : MonoBehaviour {
 		gunpowder = initGunpowder;
 		_initGunpowder = initGunpowder;
 		SpawnSquare.resetSpawn();
+		_hurt = hurt;
+		_source = SeSource;
 	}
 
 	public static void reset()
@@ -65,7 +75,10 @@ public class GameMediator : MonoBehaviour {
 		{
 			if (Input.GetKey(bombKeyType[i]))
 			{
-				bombType = i;
+				if (bombType != i) {
+					bombType = i;
+					playSE(toggle);
+				}
 			}
 		}
 
@@ -122,6 +135,7 @@ public class GameMediator : MonoBehaviour {
 				arc.transform.Rotate(0, 0, angle, Space.Self);
 				arc.transform.localScale = new Vector3(1, Vector3.Distance(target, cannon.transform.position), 1);
 				Instantiate(bomb, target, Quaternion.identity);
+				playSE(bombLaunch);
 				break;
 			}
 			case 1:
@@ -207,6 +221,12 @@ public class GameMediator : MonoBehaviour {
 		lures.RemoveAll(l => lureToDelete.Contains(l));
 	}
 
+	static public void playSE(AudioClip target)
+	{
+		_source.clip = target;
+		_source.Play();
+	}
+
 	/**
 	 * 敵を追加する
 	 */
@@ -278,6 +298,7 @@ public class GameMediator : MonoBehaviour {
 	{
 		damageCount += damage;
 		gunpowder -= damage * 3;
+		playSE(_hurt);
 	}
 
 }

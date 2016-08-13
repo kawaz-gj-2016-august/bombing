@@ -7,7 +7,7 @@ public class textFlashing : MonoBehaviour {
 	public GameObject lblPressKeyMessage;
 	public AudioSource sndSrc;
 	public AudioClip sndDecide;
-
+	public AudioSource sndBGM;
 	private bool movingSceneFlag = false;
 	private int frameCount = 0;
 	public GameObject back;
@@ -54,9 +54,23 @@ public class textFlashing : MonoBehaviour {
 		//決定音再生
 		sndSrc.clip = sndDecide;
 		sndSrc.Play();
+		StartCoroutine("Fadeout", 1.0f);
 		yield return new WaitForSeconds(sndSrc.clip.length);
 
 		//シーン遷移
 		UnityEngine.SceneManagement.SceneManager.LoadScene("Main Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+	}
+
+	IEnumerator Fadeout( float duration )
+{
+		float currentTime = 0.0f;
+		float waitTime = 0.02f;
+		float firstVol = sndBGM.volume;
+		while (duration > currentTime)
+		{
+				currentTime += Time.fixedDeltaTime;
+				sndBGM.volume = Mathf.Clamp01(firstVol * (duration - currentTime) / duration);
+				yield return new WaitForSeconds(waitTime);
+		}
 	}
 }
