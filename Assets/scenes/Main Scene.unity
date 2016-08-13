@@ -101,7 +101,7 @@ GameObject:
   - 222: {fileID: 11369590}
   - 114: {fileID: 11369589}
   m_Layer: 5
-  m_Name: bombLure
+  m_Name: bombPack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 27}
+  m_SizeDelta: {x: 200, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &475382655
 GameObject:
@@ -374,7 +374,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 27}
+  m_SizeDelta: {x: 200, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &759492113
 GameObject:
@@ -412,6 +412,7 @@ MonoBehaviour:
   gunpowder: 0
   score: 0
   cost: 64000000c80000004b000000
+  bombType: 0
   bombKeyType:
   - 1
   - 2
@@ -440,7 +441,7 @@ GameObject:
   - 222: {fileID: 774237280}
   - 114: {fileID: 774237279}
   m_Layer: 5
-  m_Name: bombPack
+  m_Name: bombLure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,7 +766,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 172, y: 27}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &932578734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,7 +793,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1026,7 +1027,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 27}
+  m_SizeDelta: {x: 200, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1557527556
 GameObject:
@@ -1062,7 +1063,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 172, y: 27}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1557527558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,7 +1090,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1202,9 +1203,9 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000016349, y: -70}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 172, y: 27}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1755991985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,7 +1232,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1626,9 +1627,12 @@ MonoBehaviour:
   meterObject: {fileID: 1801627329}
   scoreLabel: {fileID: 1793330607}
   gpLabel: {fileID: 799727355}
-  bombNormal: {fileID: 14675669}
-  bombLure: {fileID: 1276338507}
-  bombPack: {fileID: 578361386}
+  lblbombNormal: {fileID: 14675669}
+  lblbombLure: {fileID: 1276338507}
+  lblbombPack: {fileID: 578361386}
+  imgbombNormal: {fileID: 1257412715}
+  imgbombLure: {fileID: 774237279}
+  imgbombPack: {fileID: 11369589}
   gameMediator: {fileID: 759492114}
 --- !u!114 &1946295773
 MonoBehaviour:

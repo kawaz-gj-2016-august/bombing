@@ -7,9 +7,12 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.RawImage meterObject;
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
-	public UnityEngine.UI.Text bombNormal;
-	public UnityEngine.UI.Text bombLure;
-	public UnityEngine.UI.Text bombPack;
+	public UnityEngine.UI.Text lblbombNormal;
+	public UnityEngine.UI.Text lblbombLure;
+	public UnityEngine.UI.Text lblbombPack;
+	public UnityEngine.UI.Image imgbombNormal;
+	public UnityEngine.UI.Image imgbombLure;
+	public UnityEngine.UI.Image imgbombPack;
 	public GameMediator gameMediator;
 
 	public const int MaxGunPower = 1000;
@@ -78,8 +81,12 @@ public class MainSceneUI : MonoBehaviour {
 		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
 		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower);
-		bombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
-		bombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
-		bombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
+		lblbombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
+		lblbombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
+		lblbombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
+
+		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 0) ? 1.0f : 0.5f);
+		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 1) ? 1.0f : 0.5f);
+		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 2) ? 1.0f : 0.5f);
 	}
 }
