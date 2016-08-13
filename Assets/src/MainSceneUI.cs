@@ -4,9 +4,17 @@ using System;
 
 public class MainSceneUI : MonoBehaviour {
 
+	public GameMediator gameMediator;
 	public UnityEngine.UI.RawImage meterObject;
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
+	public UnityEngine.UI.Text lblbombNormal;
+	public UnityEngine.UI.Text lblbombLure;
+	public UnityEngine.UI.Text lblbombPack;
+	public UnityEngine.UI.Text lblGuide;
+	public UnityEngine.UI.Image imgbombNormal;
+	public UnityEngine.UI.Image imgbombLure;
+	public UnityEngine.UI.Image imgbombPack;
 
 	public const int MaxGunPower = 1000;
 	static public bool isGameOver = false;
@@ -32,11 +40,6 @@ public class MainSceneUI : MonoBehaviour {
 		tempScore = Math.Min(int.MaxValue, Math.Max(value, 0));
 	}
 
-	// Use this for initialization
-	void Start() {
-
-	}
-
 	/// <summary>
 	/// 滑らかな増減処理を行います
 	/// </summary>
@@ -60,6 +63,11 @@ public class MainSceneUI : MonoBehaviour {
 		dest += d * (temp - dest > 0 ? 1 : -1);
 	}
 
+	// Use this for initialization
+	void Start() {
+		//BGMは AudioSource:BGMSrc の AudioClipに直接セットされることを想定する
+	}
+
 	// Update is called once per frame
 	void Update() {
 		if(isGameOver == true) {
@@ -70,10 +78,33 @@ public class MainSceneUI : MonoBehaviour {
 		applyIncrement(ref tempPower, ref GunPower);
 		applyIncrement(ref tempScore, ref Score);
 
-		//UI類を更新
+		//メーター更新
 		meterObject.uvRect = new Rect(0, 0, 1.0f, GunPower / (float)MaxGunPower);
 		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
+		
+		//数値表示更新
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
-		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower);
+		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower) + (GunPower >= MaxGunPower && gameMediator.gunpowder > MaxGunPower ? "+" : "");
+		lblbombNormal.text = string.Format("- {0:D3}", gameMediator.cost[0]);
+		lblbombLure.text = string.Format("- {0:D3}", gameMediator.cost[1]);
+		lblbombPack.text = string.Format("- {0:D3}", gameMediator.cost[2]);
+
+		//ボム種別のアクティブ表示切替
+		imgbombNormal.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 0) ? 1.0f : 0.5f);
+		imgbombLure.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 1) ? 1.0f : 0.5f);
+		imgbombPack.color = new Color(1.0f, 1.0f, 1.0f, (gameMediator.bombType == 2) ? 1.0f : 0.5f);
+
+		//ボム効果のガイド表示
+		switch(gameMediator.bombType) {
+			case 0:
+				lblGuide.text = "投げ込んだらすぐに爆破する";
+				break;
+			case 1:
+				lblGuide.text = "置いた場所に一定時間、敵が群がる";
+				break;
+			case 2:
+				lblGuide.text = "自然発火せず、引火して爆破する";
+				break;
+		}
 	}
 }
