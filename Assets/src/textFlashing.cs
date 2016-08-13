@@ -4,14 +4,17 @@ using System.Collections;
 public class textFlashing : MonoBehaviour {
 
 	public GameObject lblPressKeyMessage;
-	public AudioSource sndDecide;
+	public AudioSource sndSrc;
+	public AudioClip sndDecide;
 
 	private bool movingSceneFlag = false;
 	private int frameCount = 0;
 
 	// Use this for initialization
 	void Start() {
-		this.frameCount = 0;
+		//TODO: スタート画面BGMを再生
+		//sndSrc.clip = 
+		//sndSrc.Play();
 	}
 
 	// Update is called once per frame
@@ -41,9 +44,9 @@ public class textFlashing : MonoBehaviour {
 	/// </summary>
 	private IEnumerator moveScene() {
 		//決定音再生
-		sndDecide.clip.LoadAudioData();
-		sndDecide.Play();
-		yield return new WaitForSeconds(sndDecide.clip.length);
+		sndSrc.clip = sndDecide;
+		sndSrc.Play();
+		yield return new WaitForSeconds(sndSrc.clip.length);
 
 		//シーン遷移
 		UnityEngine.SceneManagement.SceneManager.UnloadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);

@@ -17,7 +17,7 @@ public class GameMediator : MonoBehaviour {
 	static private List<GameObject> enemies = new List<GameObject>();
 	static private List<GameObject> powderPacks = new List<GameObject>();
 	static private List<GameObject> lures = new List<GameObject>();
-	private int bombType = 0;
+	public int bombType = 0;
 	public string[] bombKeyType = new string[] {"1", "2", "3"};
 
 	static protected int killCount = 0;
