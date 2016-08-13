@@ -1,0 +1,1 @@
+* use "%programs%/p4merge.app/Contents/Resources/launchp4merge" "%b" "%l" "%r" "%d"
