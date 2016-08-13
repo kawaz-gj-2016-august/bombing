@@ -8,40 +8,28 @@ public class MainSceneUI : MonoBehaviour {
 	public UnityEngine.UI.Text scoreLabel;
 	public UnityEngine.UI.Text gpLabel;
 
-	public const int MaxGunPower = 999999;
-	static public int GunPower = 0;
-	static public int Score = 0;
+	public const int MaxGunPower = 1000;
+	static public bool isGameOver = false;
+	static private int GunPower = 0;
+	static private int Score = 0;
 	static private int tempPower = 0;
 	static private int tempScore = 0;
 
 	/// <summary>
 	/// 残弾ゲージを滑らかに増減します。
 	/// </summary>
-	public void IncrementGunPowder(int value) {
-	//	tempPower += value;
-		tempPower = value;
-	}
-
-	/// <summary>
-	/// スコアを滑らかに増減します。
-	/// </summary>
-	public void IncrementScore(int value) {
-		//tempScore += value;
-		tempScore = value;
-	}
-
-	/// <summary>
-	/// 残弾ゲージを滑らかに増減します。
-	/// </summary>
 	static public void setGunPowder(int value) {
-		tempPower = value;
+		if(value < 0) {
+			isGameOver = true;
+		}
+		tempPower = Math.Min(MaxGunPower, Math.Max(value, 0));
 	}
 
 	/// <summary>
 	/// スコアを滑らかに増減します。
 	/// </summary>
 	static public void setScore(int value) {
-		tempScore = value;
+		tempScore = Math.Min(int.MaxValue, Math.Max(value, 0));
 	}
 
 	// Use this for initialization
@@ -52,39 +40,40 @@ public class MainSceneUI : MonoBehaviour {
 	/// <summary>
 	/// 滑らかな増減処理を行います
 	/// </summary>
-	/*private void applyIncrement(ref int temp, ref int dest, int min, int max) {
-		int value = (System.Math.Abs(temp) / 10 > 0) ? System.Math.Abs(temp) / 10 : 1;
+	/*private void applyIncrement(ref int temp, ref int dest){//, int min, int max) {
+		if(temp == dest) {
+			return;
+		}
+		int value = (Math.Abs(temp) / 10 > 0) ? Math.Abs(temp) / 10 : 1;
 		dest += value * (temp > 0 ? 1 : -1);
 		temp += value * (temp > 0 ? -1 : 1);
-		dest = System.Math.Min(max, System.Math.Max(dest, min));
+		//dest = Math.Min(max, Math.Max(dest, min));
 	}*/
 	private void applyIncrement(ref int temp, ref int dest) {
+		if(temp == dest) {
+			return;
+		}
+
 		int delta = Math.Abs(temp - dest);
 		int d = ((delta / 10 > 0) ? delta / 10 : (temp != dest ? 1 : 0));
 
-		string dbg = "dest: before=";
-		dbg += dest;
-		dest = dest + d * (temp - dest > 0 ? 1 : -1);
-		dbg += " / after=" + dest;
-		Debug.Log(dbg);
+		dest += d * (temp - dest > 0 ? 1 : -1);
 	}
 
 	// Update is called once per frame
 	void Update() {
-		applyIncrement(ref tempPower, ref GunPower);
+		if(isGameOver == true) {
+			//TODO: ゲームオーバー(RESULT)移行
+		}
 
-		//スコアを滑らかに増減
+		//数値変動
+		applyIncrement(ref tempPower, ref GunPower);
 		applyIncrement(ref tempScore, ref Score);
 
 		//UI類を更新
-		meterObject.uvRect = new Rect(0, 0, GunPower / (float)MaxGunPower, 1.0f);
-		meterObject.transform.localScale = new Vector3(GunPower / (float)MaxGunPower, 1.0f, 1.0f);
+		meterObject.uvRect = new Rect(0, 0, 1.0f, GunPower / (float)MaxGunPower);
+		meterObject.transform.localScale = new Vector3(1.0f, GunPower / (float)MaxGunPower, 1.0f);
 		scoreLabel.text = "Score: " + string.Format("{0:D9}", Score);
-		gpLabel.text = "GP: " + string.Format("{0:D9}", GunPower);
-	}
-
-	public void TestGauge() {
-		IncrementGunPowder(100);
-		IncrementScore(100000);
+		gpLabel.text = "GP: " + string.Format("{0:D4}", GunPower);
 	}
 }
