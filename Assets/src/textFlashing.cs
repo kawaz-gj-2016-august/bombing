@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class textFlashing : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class textFlashing : MonoBehaviour {
 
 	private bool movingSceneFlag = false;
 	private int frameCount = 0;
+	public GameObject back;
 
 	// Use this for initialization
 	void Start() {
@@ -34,6 +36,12 @@ public class textFlashing : MonoBehaviour {
 			this.movingSceneFlag = true;
 			StartCoroutine(this.moveScene());
 		}
+
+		if (movingSceneFlag == true)
+		{
+			back.GetComponent<Image>().CrossFadeColor(Color.black, sndDecide.clip.length, false, false);
+		}
+
 	}
 
 	/// <summary>
@@ -46,7 +54,6 @@ public class textFlashing : MonoBehaviour {
 		yield return new WaitForSeconds(sndDecide.clip.length);
 
 		//シーン遷移
-		UnityEngine.SceneManagement.SceneManager.UnloadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 		UnityEngine.SceneManagement.SceneManager.LoadScene("Main Scene", UnityEngine.SceneManagement.LoadSceneMode.Single);
 	}
 }
