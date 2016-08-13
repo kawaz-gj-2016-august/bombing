@@ -75,14 +75,13 @@ public class GameMediator : MonoBehaviour {
 			if (gunpowder >= cost[bombType])
 			{
 				dropBomb(bombType);
-				gunpowder -= cost[bombType];
 			}
 			else
 			{
 				// 足らない
 			}
 		}
-
+		Debug.Log(gunpowder);
 		if (gunpowder < 0)
 		{
 			stopped = true;
@@ -110,7 +109,9 @@ public class GameMediator : MonoBehaviour {
 		// 2Dの時も3Dのやり方を踏襲してOK。最後にZを切り捨てる
 		target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		target.z = transform.position.z; // Z切り捨て
+		if (target.y > 0.0f) return;
 		Instantiate(targetX, target, Quaternion.identity); // ターゲットのXマーク
+		gunpowder -= cost[bombType];
 		switch (bombType) {
 			case 0:
 			{
@@ -120,7 +121,6 @@ public class GameMediator : MonoBehaviour {
 				GameObject arc = (GameObject)Instantiate(bombArc, cannon.transform.position, Quaternion.identity);
 				arc.transform.Rotate(0, 0, angle, Space.Self);
 				arc.transform.localScale = new Vector3(1, Vector3.Distance(target, cannon.transform.position), 1);
-				Debug.Log(Vector3.Distance(target, cannon.transform.position));
 				Instantiate(bomb, target, Quaternion.identity);
 				break;
 			}
