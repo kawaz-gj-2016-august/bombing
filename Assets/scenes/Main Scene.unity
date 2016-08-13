@@ -362,6 +362,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1165218604}
   - 212: {fileID: 1165218603}
+  - 114: {fileID: 1165218605}
   m_Layer: 0
   m_Name: Lure
   m_TagString: Untagged
@@ -415,6 +416,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
+--- !u!114 &1165218605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1165218602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dc0096603b044a0ab7b9d23251f9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1599423569}
+  buttonType: 
 --- !u!1 &1226242875
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +560,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1256260342}
   - 212: {fileID: 1256260341}
+  - 114: {fileID: 1256260343}
   m_Layer: 0
   m_Name: powerPack
   m_TagString: Untagged
@@ -599,6 +614,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+--- !u!114 &1256260343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1256260340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dc0096603b044a0ab7b9d23251f9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1256260341}
+  buttonType: 
 --- !u!1 &1280585156
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +861,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1384909531}
   - 212: {fileID: 1384909530}
+  - 114: {fileID: 1384909532}
   m_Layer: 0
   m_Name: bomb
   m_TagString: Untagged
@@ -886,6 +915,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+--- !u!114 &1384909532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1384909529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dc0096603b044a0ab7b9d23251f9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1384909530}
+  buttonType: "Mediator\u306EType"
 --- !u!1 &1432284079
 GameObject:
   m_ObjectHideFlags: 0
