@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BackgroundEffect : MonoBehaviour {
 
+
 	public Sprite DamageSprite;
 	public Sprite SuccessSprite;
 	public bool useEffectDamage = false;
-
 	public SpriteRenderer spriteRenderer;
 	// Use this for initialization
 	public float startCount = 0.3f;
@@ -15,24 +15,23 @@ public class BackgroundEffect : MonoBehaviour {
 	protected bool reverse = false;
 	protected float addCount = 0.01f;
 
+	protected Sprite DefaultSprite;
+
 	// ダメージや成功時のエフェクト発動
 	protected bool statusEffecting = false;
 
+	protected int prevDamage = 0;
+	protected int prevKillCount = 0;
 
 	void Start () {
 		this.spriteRenderer = GetComponent<SpriteRenderer>();
 		this.spriteRenderer.color = new Color(1, 1, 1, count);
+		DefaultSprite = spriteRenderer.sprite;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// ダメージ検知したら
-		if (statusEffecting)
-		{
-			statusEffecting = true;
-			count = startCount;
-			reverse = false;
-		}
+		
 		if (!reverse)
 		{
 			count += addCount;
@@ -47,16 +46,26 @@ public class BackgroundEffect : MonoBehaviour {
 				count = startCount;
 				reverse = false;
 				statusEffecting = false;
+				spriteRenderer.sprite = DefaultSprite;
 			}
 		}
 
 		this.spriteRenderer.color = new Color(count, count, count, count);
 
+		// 成功時
+		if (useEffectDamage && prevKillCount != GameMediator.getKillCount ())
+		{
+			spriteRenderer.sprite = SuccessSprite;
+		}
+
 		// ダメージの時
-		if (useEffectDamage && statusEffecting)
+		if (useEffectDamage && prevDamage != GameMediator.getDamageCount ())
 		{
 			spriteRenderer.sprite = DamageSprite;
 		}
+
+		prevDamage = GameMediator.getDamageCount ();
+		prevKillCount = GameMediator.getKillCount ();
 
 
 	}

@@ -10,8 +10,8 @@ public class SpawnSquare : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log("Spawner loaded.");
-		spriteToSpawn.transform.position = new Vector3(0, 4.5f, 1);
-		spriteToSpawn.transform.localScale = new Vector3(1, 1, 1);
+		spriteToSpawn.transform.position = new Vector3(0, 4.5f, 2.0f);
+		spriteToSpawn.transform.localScale = new Vector3(1, 1, 2.0f);
 	}
 
 	// Update is called once per frame
