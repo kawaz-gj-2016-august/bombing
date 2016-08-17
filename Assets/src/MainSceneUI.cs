@@ -66,6 +66,7 @@ public class MainSceneUI : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		//BGMは AudioSource:BGMSrc の AudioClipに直接セットされることを想定する
+		Application.targetFrameRate = 60;
 	}
 
 	// Update is called once per frame
