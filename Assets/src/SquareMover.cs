@@ -17,6 +17,7 @@ public class SquareMover : MonoBehaviour {
 
 	protected List<GameObject> usedLures;
 
+	protected float moveSpeedRate = 2.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -101,8 +102,8 @@ public class SquareMover : MonoBehaviour {
 		// ルアーに入っていなければ通常移動
 		if (!inLures)
 		{
-			pos.y -= directionY;
-			pos.x += directionX;
+			pos.y -= directionY * this.moveSpeedRate;
+			pos.x += directionX * this.moveSpeedRate;
 			gameObject.transform.position = pos;
 		}
 
