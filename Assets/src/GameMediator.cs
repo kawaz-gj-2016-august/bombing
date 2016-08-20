@@ -189,6 +189,7 @@ public class GameMediator : MonoBehaviour {
 				Destroy(enemy.gameObject);
 				enemyToDelete.Add(enemy);
 				SpawnSquare.spriteDestroyed();
+				score += 1;
 				gunpowder += 1;
 				killCount += 1;
 			}
