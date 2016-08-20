@@ -11,6 +11,8 @@ public class textFlashing : MonoBehaviour {
 	private bool movingSceneFlag = false;
 	private int frameCount = 0;
 	public GameObject back;
+	public Image titleLogo;
+	public Image backgroundEffect;
 
 	// Use this for initialization
 	void Start() {
@@ -66,10 +68,16 @@ public class textFlashing : MonoBehaviour {
 		float currentTime = 0.0f;
 		float waitTime = 0.02f;
 		float firstVol = sndBGM.volume;
+		this.backgroundEffect.color = new Color(1, 1, 1, 0);
 		while (duration > currentTime)
 		{
 				currentTime += Time.fixedDeltaTime;
 				sndBGM.volume = Mathf.Clamp01(firstVol * (duration - currentTime) / duration);
+				if (0.2f > sndBGM.volume)
+				{
+					this.titleLogo.color = new Color(1, 1, 1, sndBGM.volume * 5);
+
+				}
 				yield return new WaitForSeconds(waitTime);
 		}
 	}
