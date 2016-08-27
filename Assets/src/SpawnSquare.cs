@@ -15,7 +15,7 @@ public class SpawnSquare : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (numberSpawned < MAX_SPAWNED) {
+		if (numberSpawned < MAX_SPAWNED + (GameMediator.getKillCount() / 2)) {
 			GameMediator.addEnemy(Instantiate(spriteToSpawn));
 			numberSpawned++;
 		}

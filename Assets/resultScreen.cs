@@ -12,7 +12,7 @@ public class resultScreen : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		source.clip = se;
-		scoreLabel.GetComponent<Text>().text = String.Format("score    {0:D9}", Communicator.getScore());
+		scoreLabel.GetComponent<Text>().text = String.Format("SCORE    {0:D9}", Communicator.getScore());
 	}
 
 	// Update is called once per frame
