@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5472e91f2900143a78a3601609a195de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurt: {fileID: 8300000, guid: 44fe1649c6d774d06a7ba873be46a88f, type: 3}
   damageRange: 2
 --- !u!212 &212000013866260702
 SpriteRenderer:

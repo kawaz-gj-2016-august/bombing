@@ -14,8 +14,6 @@ public class GameMediator : MonoBehaviour {
 	public AudioSource SeSource;
 	static public AudioSource _source;
 	public AudioClip bombLaunch;
-	public AudioClip hurt;
-	static public AudioClip _hurt;
 	public AudioClip exp;
 	static public AudioClip _exp;
 	public AudioClip toggle;
@@ -35,6 +33,8 @@ public class GameMediator : MonoBehaviour {
 	static protected int killCount = 0;
 	static protected int damageCount = 0;
 
+	static public GameMediator instance;
+
 	void Awake()
 	{
 		DontDestroyOnLoad(this);
@@ -50,8 +50,9 @@ public class GameMediator : MonoBehaviour {
 		gunpowder = initGunpowder;
 		_initGunpowder = initGunpowder;
 		SpawnSquare.resetSpawn();
-		_hurt = hurt;
 		_source = SeSource;
+		instance = gameObject.GetComponent<GameMediator>();
+		SeSource = GameObject.Find("audioSrc").GetComponent<AudioSource>();
 	}
 
 	public static void reset()
@@ -67,8 +68,12 @@ public class GameMediator : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		
 		if (stopped) return;
+
+		// ２週目以降あStartを正しく読んでいなさそうなのでここで強引い更新
+		instance = gameObject.GetComponent<GameMediator>();
+		SeSource = GameObject.Find("audioSrc").GetComponent<AudioSource>();
 
 		// 爆弾の種類の切り替えを行う
 		for (int i = 0; i < bombKeyType.Length; i++)
@@ -222,10 +227,10 @@ public class GameMediator : MonoBehaviour {
 		lures.RemoveAll(l => lureToDelete.Contains(l));
 	}
 
-	static public void playSE(AudioClip target)
+	public void playSE(AudioClip target)
 	{
-		_source.clip = target;
-		_source.Play();
+		SeSource.clip = target;
+		SeSource.Play();
 	}
 
 	/**
@@ -299,7 +304,6 @@ public class GameMediator : MonoBehaviour {
 	{
 		damageCount += damage;
 		gunpowder -= damage * 3;
-		playSE(_hurt);
 	}
 
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class SquareMover : MonoBehaviour {
 
+	public AudioClip hurt;
+
 	protected float directionX = 0f;
 	protected float directionY = 0f;
 	public float damageRange = 2.0f;
@@ -114,6 +116,8 @@ public class SquareMover : MonoBehaviour {
 			Destroy(gameObject);
 			SpawnSquare.spriteDestroyed();
 			GameMediator.addDamageCount(1 + (GameMediator.getKillCount() / 1000));
+
+			GameMediator.instance.playSE(hurt);
 		}
 	}
 }
