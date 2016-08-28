@@ -27,7 +27,7 @@ public class GameMediator : MonoBehaviour {
 	static protected List<GameObject> enemies = new List<GameObject>();
 	static protected List<GameObject> powderPacks = new List<GameObject>();
 	static protected List<GameObject> lures = new List<GameObject>();
-	static private int bombType = 0;
+	static public int bombType = 0;
 	public string[] bombKeyType = new string[] {"1", "2", "3"};
 	static private bool stopped = false;
 
@@ -132,6 +132,7 @@ public class GameMediator : MonoBehaviour {
 		target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		target.z = transform.position.z; // Z切り捨て
 		if (target.y > 0.0f) return;
+		if (target.x < -6.5f) return;
 		Instantiate(targetX, target, Quaternion.identity); // ターゲットのXマーク
 		gunpowder -= cost[bombType];
 		switch (bombType) {
