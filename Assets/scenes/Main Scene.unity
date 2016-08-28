@@ -614,6 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a1d9949060f48719d008ea352ef0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxGamePower: 1000
   targetX: {fileID: 1000013819743488, guid: 49f4984871f024898b067c3f85df8789, type: 2}
   bomb: {fileID: 1000011024544778, guid: 5b060af9190fe403598983eba8d4ef9e, type: 2}
   lure: {fileID: 1000013527573736, guid: f3c87461036cf43f09abb32e89067b0e, type: 2}
@@ -1921,7 +1922,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   Priority: 128
