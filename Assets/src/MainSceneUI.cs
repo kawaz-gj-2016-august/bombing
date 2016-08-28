@@ -62,6 +62,10 @@ public class MainSceneUI : MonoBehaviour {
 
 		dest += d * (temp - dest > 0 ? 1 : -1);
 	}
+	public static void reset()
+	{
+		Score = 0;
+	}
 
 	// Use this for initialization
 	void Start() {
@@ -73,6 +77,7 @@ public class MainSceneUI : MonoBehaviour {
 	void Update() {
 		if(isGameOver == true) {
 			//TODO: ゲームオーバー(RESULT)移行
+
 		}
 
 		//数値変動

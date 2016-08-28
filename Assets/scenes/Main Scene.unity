@@ -622,7 +622,6 @@ MonoBehaviour:
   bombArc: {fileID: 1000010121234690, guid: 0770ead4f719347519136eefd8f860d1, type: 2}
   SeSource: {fileID: 1060285369}
   bombLaunch: {fileID: 8300000, guid: 2a5449918ba014f6496665c1b5754ec5, type: 3}
-  hurt: {fileID: 8300000, guid: 44fe1649c6d774d06a7ba873be46a88f, type: 3}
   exp: {fileID: 0}
   toggle: {fileID: 8300000, guid: 4a859d8949ad44b80b8879e5271e2d25, type: 3}
   initGunpowder: 0
@@ -1064,7 +1063,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

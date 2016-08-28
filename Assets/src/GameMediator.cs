@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class GameMediator : MonoBehaviour {
 
+	public int maxGamePower = 1000;
 	public GameObject targetX;
 	public GameObject bomb;
 	public GameObject lure;
@@ -18,8 +19,8 @@ public class GameMediator : MonoBehaviour {
 	static public AudioClip _exp;
 	public AudioClip toggle;
 	public int initGunpowder;
-	static int _initGunpowder;
-	static int gunpowder;
+	static float _initGunpowder;
+	static float gunpowder;
 	static public int score;
 	public int[] cost = new int[3];
 	public int[] limit = new int[3];
@@ -64,6 +65,9 @@ public class GameMediator : MonoBehaviour {
 		score = 0;
 		bombType = 0;
 		stopped = false;
+		killCount = 0;
+		damageCount = 0;
+		MainSceneUI.reset();
 	}
 
 	// Update is called once per frame
@@ -99,7 +103,7 @@ public class GameMediator : MonoBehaviour {
 				// 足らない
 			}
 		}
-		Debug.Log(gunpowder);
+		//Debug.Log(gunpowder);
 		if (gunpowder < 0)
 		{
 			stopped = true;
@@ -112,8 +116,8 @@ public class GameMediator : MonoBehaviour {
 		}
 
 		gunpowder += 1;
-
-		MainSceneUI.setGunPowder(gunpowder);
+		gunpowder = System.Math.Min(gunpowder, maxGamePower);
+		MainSceneUI.setGunPowder((int)Math.Floor(gunpowder));
 		MainSceneUI.setScore(score);
 	}
 
@@ -188,14 +192,16 @@ public class GameMediator : MonoBehaviour {
 		foreach (GameObject enemy in enemies)
 		{
 			// positionとobjectPositionの距離をとってdRange内にあればヒット
-			if (Vector3.Distance(enemy.transform.position, position) < dRange)
+			float distance = Vector3.Distance(enemy.transform.position, position);
+			if (distance < dRange)
 			{
 				// TODO: ここに敵をぶっとばす処理を入れる
 				Destroy(enemy.gameObject);
 				enemyToDelete.Add(enemy);
 				SpawnSquare.spriteDestroyed();
-				score += 1;
-				gunpowder += 2;
+				score += 1 + ( 400 - System.Math.Min((int)System.Math.Floor(distance) * 200, 400 - 1)) * 10;
+				Debug.Log("Distance to other: " + distance);
+				gunpowder += 2.2f;
 				killCount += 1;
 			}
 		}
@@ -282,7 +288,7 @@ public class GameMediator : MonoBehaviour {
 
 	static public int getGunpowder()
 	{
-		return gunpowder;
+		return (int)Math.Floor(gunpowder);
 	}
 
 	static public int getBombType()
@@ -303,7 +309,7 @@ public class GameMediator : MonoBehaviour {
 	static public void addDamageCount(int damage = 1)
 	{
 		damageCount += damage;
-		gunpowder -= damage * 3;
+		gunpowder -= damage * 3.4f;
 	}
 
 }

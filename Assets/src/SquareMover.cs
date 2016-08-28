@@ -115,7 +115,8 @@ public class SquareMover : MonoBehaviour {
 			GameMediator.removeEnemy(gameObject);
 			Destroy(gameObject);
 			SpawnSquare.spriteDestroyed();
-			GameMediator.addDamageCount(1 + (GameMediator.getKillCount() / 1000));
+			double killPenalty = GameMediator.getKillCount() / 1000;
+			GameMediator.addDamageCount(1 + System.Math.Min((int)System.Math.Floor(killPenalty), 8));
 
 			GameMediator.instance.playSE(hurt);
 		}
